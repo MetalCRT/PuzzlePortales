@@ -1,30 +1,56 @@
-[gd_scene load_steps=4 format=3 uid="uid://dk8i4ku0ipy6t"]
+[gd_scene load_steps=6 format=3 uid="uid://dk8i4ku0ipy6t"]
 
 [ext_resource type="Script" uid="uid://b621m122fjwdb" path="res://scripts/shared.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://di4to3tfr5ahr" path="res://assets/Border.png" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://hjs0bbcnnxl0" path="res://assets/Grid.png" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://co6t3c1up4bln" path="res://scripts/piece_spawner.gd" id="4_jyhfs"]
+[ext_resource type="Script" uid="uid://dyfh831xcd22a" path="res://scripts/board.gd" id="5_tbgi4"]
 
 [node name="main" type="Node"]
 script = ExtResource("1_sugp2")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(22, 93)
-anchor_mode = 0
 zoom = Vector2(0.5, 0.5)
 
 [node name="Border" type="TextureRect" parent="."]
 texture_filter = 1
-offset_left = -1.0
-offset_right = 2051.0
-offset_bottom = 3970.0
-scale = Vector2(0.5, 1)
+offset_left = -256.0
+offset_top = -496.0
+offset_right = 1794.0
+offset_bottom = 3474.0
+scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_sugp2")
 
 [node name="GridTexture" type="TextureRect" parent="Border"]
-layout_mode = 0
-offset_left = 66.0
-offset_top = 65.0
-offset_right = 1986.0
-offset_bottom = 3905.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -962.0
+offset_top = -1921.0
+offset_right = 958.0
+offset_bottom = 1919.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_sugp2")
 stretch_mode = 1
+
+[node name="Board" type="Node" parent="."]
+script = ExtResource("5_tbgi4")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_left = -100.0
+offset_top = -631.0
+offset_right = 100.0
+offset_bottom = -531.0
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "NEXT"
+horizontal_alignment = 1
+
+[node name="PieceSpawner" type="Node" parent="."]
+script = ExtResource("4_jyhfs")

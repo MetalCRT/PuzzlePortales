@@ -1,15 +1,5 @@
-extends Node
+extends Resource
 
-enum Tetromino {
-	I, O, T, J, L, S, Z
-}
-
-var cells = {
-	Tetromino.I: [Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0), Vector2(2, 0)],
-	Tetromino.J: [Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0)],
-	Tetromino.L: [Vector2(1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0)],
-	Tetromino.O: [Vector2(0, 1), Vector2(1, 1), Vector2(0, 0), Vector2(1, 0)],
-	Tetromino.S: [Vector2(0, 1), Vector2(1, 1), Vector2(-1, 0), Vector2(0, 0)],
-	Tetromino.T: [Vector2(0, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0)],
-	Tetromino.Z: [Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0)]
-}
+@export var piece_texture: Texture
+@export var spawn_position: Vector2
+@export var tetromino_type: Shared.Tetromino
