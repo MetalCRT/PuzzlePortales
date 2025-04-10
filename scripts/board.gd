@@ -3,6 +3,7 @@ extends Node
 class_name Board
 
 signal tetromino_locked
+signal game_over
 
 @onready var panel_container: PanelContainer = $"../PanelContainer"
 var tetrominos: Array[Tetromino] = []
@@ -37,10 +38,19 @@ func on_tetromino_locked(tetromino: Tetromino):
 	next_tetromino.queue_free()
 	tetrominos.append(tetromino)
 	tetromino_locked.emit()
-	#TODO Check is game over
+	
+	check_game_over()
 	clear_lines()
 	
 	#TODO Check for the lines to clear
+
+func check_game_over():
+	for tetromino in tetrominos:
+		var pieces = tetromino.get_children().filter(func (c): return c is Piece)
+		for piece in pieces:
+			var y_location = piece.global_position.y
+			if y_location == -456:
+				game_over.emit()
 
 func clear_lines():
 	var board_pieces = fill_board_pieces()

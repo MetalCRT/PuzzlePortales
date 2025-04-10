@@ -160,8 +160,6 @@ func apply_rotation(direction:int):
 	var tetromino_cells = Shared.cells[tetromino_data.tetromino_type]
 	for i in tetromino_cells.size():
 		var cell = tetromino_cells[i]
-		var x
-		var y
 		var coordinates = rotation_matrix[0] * cell.x + rotation_matrix[1] * cell.y
 		tetromino_cells[i] = coordinates
 	
