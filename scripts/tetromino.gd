@@ -64,7 +64,7 @@ func hard_drop_ghost():
 	
 	return final_hard_drop_position
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed("left"):
 		move(Vector2.LEFT)
 	elif Input.is_action_just_pressed("right"):
