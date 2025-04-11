@@ -24,7 +24,6 @@ Shared="*res://scripts/shared.gd"
 
 [display]
 
-window/size/viewport_width=324
 window/stretch/mode="canvas_items"
 
 [gui]
