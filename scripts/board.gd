@@ -21,6 +21,7 @@ func spawn_tetromino(type: Shared.Tetromino, 	is_next_piece, spawn_position):
 	tetromino.tetromino_data = tetromino_data
 	tetromino.is_next_piece = is_next_piece
 	
+	
 	if is_next_piece == false:
 		tetromino.position = tetromino_data.spawn_position
 		tetromino.other_tetrominos = tetrominos

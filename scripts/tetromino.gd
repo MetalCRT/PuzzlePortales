@@ -23,6 +23,8 @@ var ghost_tetromino
 @onready var ghost_tetromino_scene = preload("res://scenes/ghost_tetromino.tscn")
 
 var tetromino_cells 
+
+
 func _ready():
 	tetromino_cells = Shared.cells[tetromino_data.tetromino_type]
 	for cell in tetromino_cells:
@@ -45,10 +47,10 @@ func _ready():
 		
 func hard_drop_ghost():
 	var final_hard_drop_position
-	var ghost_position_update = calculate_global_position(Vector2.DOWN, global_position)
+	var ghost_position_update = calculate_position(Vector2.DOWN, global_position)
 	
 	while ghost_position_update != null:
-		ghost_position_update = calculate_global_position(Vector2.DOWN, ghost_position_update)
+		ghost_position_update = calculate_position(Vector2.DOWN, ghost_position_update)
 		if ghost_position_update != null:
 			final_hard_drop_position = ghost_position_update
 	
@@ -64,53 +66,53 @@ func hard_drop_ghost():
 	
 	return final_hard_drop_position
 
+
 func _input(event):
-	if Input.is_action_just_pressed("left"):
-		move(Vector2.LEFT)
-	elif Input.is_action_just_pressed("right"):
-		move(Vector2.RIGHT)
-	elif Input.is_action_just_pressed("down"):
-		move(Vector2.DOWN)
-	elif Input.is_action_just_pressed("hard_drop"):
-		hard_drop()
-	elif Input.is_action_just_pressed("rotate_left"):
-		rotate_tetromino(-1)
-	elif Input.is_action_just_pressed("rotate_right"):
-		rotate_tetromino(1)
-		
+	if is_multiplayer_authority():
+		if Input.is_action_just_pressed("left"):
+			move(Vector2.LEFT)
+		elif Input.is_action_just_pressed("right"):
+			move(Vector2.RIGHT)
+		elif Input.is_action_just_pressed("down"):
+			move(Vector2.DOWN)
+		elif Input.is_action_just_pressed("hard_drop"):
+			hard_drop()
+		elif Input.is_action_just_pressed("rotate_left"):
+			rotate_tetromino(-1)
+		elif Input.is_action_just_pressed("rotate_right"):
+			rotate_tetromino(1)
+			
 func move(direction: Vector2) -> bool:
-	var new_position = calculate_global_position(direction, global_position)
+	var new_position = calculate_position(direction, position)
 	if new_position:
-		global_position = new_position
+		position = new_position
 		if direction != Vector2.DOWN:
 			hard_drop_ghost.call_deferred()
 		return true
 	return false 
 
-func calculate_global_position(direction: Vector2, starting_global_position: Vector2):
-	#TODO: Check for collision with other tetromino
-	if is_colliding_with_other_tetrominos(direction, starting_global_position):
+func calculate_position(direction: Vector2, starting_position: Vector2):
+	if is_colliding_with_other_tetrominos(direction, starting_position):
 		return null
-	
-	#TODO: Check for collision with borders
-	if !is_within_game_bounds(direction, starting_global_position):
+	if !is_within_game_bounds(direction, starting_position):
 		return null
-	return starting_global_position + direction * pieces[0].get_size().x
+	return starting_position + direction * pieces[0].get_size().y
 
-func is_within_game_bounds(direction: Vector2, starting_global_position: Vector2):
+
+func is_within_game_bounds(direction: Vector2, starting_position: Vector2):
 	for piece in pieces: 
-		var new_position = piece.position + starting_global_position + direction * piece.get_size()
+		var new_position = piece.position + starting_position + direction * piece.get_size()
 		if new_position.x < bounds.get("min_x") || new_position.x > bounds.get("max_x") || new_position.y >= bounds.get("max_y"):
 			return false
 	return true
 
-func is_colliding_with_other_tetrominos(direction: Vector2, starting_global_position: Vector2):
+func is_colliding_with_other_tetrominos(direction: Vector2, starting_position: Vector2):
 	for tetromino in other_tetrominos:
 		var tetromino_pieces = tetromino.get_children().filter(func (c): return c is Piece) 
 		for tetromino_piece in tetromino_pieces:
 			for piece in pieces:
-				if starting_global_position + piece.position + direction * piece.get_size().x \
-				== tetromino.global_position + tetromino_piece.position:
+				if starting_position + piece.position + direction * piece.get_size().x \
+				== tetromino.position + tetromino_piece.position:
 					return true
 	return false
 

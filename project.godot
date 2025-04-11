@@ -27,6 +27,10 @@ Shared="*res://scripts/shared.gd"
 window/size/viewport_width=324
 window/stretch/mode="canvas_items"
 
+[gui]
+
+theme/custom="uid://bftidk4cg45qj"
+
 [input]
 
 test={

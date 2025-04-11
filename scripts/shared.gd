@@ -1,4 +1,10 @@
 extends Node
+@onready var label: Label = $Label
+
+func setup(player_data: Statics.PlayerData):
+	label.text = player_data.name
+	name = str(player_data.id)
+	set_multiplayer_authority(player_data.id)
 
 enum Tetromino {
 	I, O, T, J, L, S, Z

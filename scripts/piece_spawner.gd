@@ -7,6 +7,7 @@ var next_tetromino
 
 #enum Tetromino { I, O, T, J, L, S, Z }
 
+	
 func _ready():
 	#fill_bag()
 	#spawn_next_piece()
