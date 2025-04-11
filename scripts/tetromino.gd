@@ -66,8 +66,7 @@ func hard_drop_ghost():
 	
 	return final_hard_drop_position
 
-
-func _input(event):
+func _input(_event):
 	if is_multiplayer_authority():
 		if Input.is_action_just_pressed("left"):
 			move(Vector2.LEFT)
@@ -162,8 +161,6 @@ func apply_rotation(direction:int):
 	var tetromino_cells = Shared.cells[tetromino_data.tetromino_type]
 	for i in tetromino_cells.size():
 		var cell = tetromino_cells[i]
-		var x
-		var y
 		var coordinates = rotation_matrix[0] * cell.x + rotation_matrix[1] * cell.y
 		tetromino_cells[i] = coordinates
 	

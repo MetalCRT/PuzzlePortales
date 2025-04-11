@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://dk8i4ku0ipy6t"]
+[gd_scene load_steps=7 format=3 uid="uid://dk8i4ku0ipy6t"]
 
 [ext_resource type="Script" uid="uid://b621m122fjwdb" path="res://scripts/shared.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://di4to3tfr5ahr" path="res://assets/Border.png" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://hjs0bbcnnxl0" path="res://assets/Grid.png" id="3_sugp2"]
 [ext_resource type="Script" uid="uid://co6t3c1up4bln" path="res://scripts/piece_spawner.gd" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://dyfh831xcd22a" path="res://scripts/board.gd" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://blawcgt7qwkxg" path="res://scenes/ui.tscn" id="6_tefeu"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_sugp2")
@@ -60,3 +61,5 @@ horizontal_alignment = 1
 
 [node name="PieceSpawner" type="Node" parent="."]
 script = ExtResource("4_jyhfs")
+
+[node name="UI" parent="." instance=ExtResource("6_tefeu")]
