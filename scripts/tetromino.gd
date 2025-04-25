@@ -15,7 +15,7 @@ var wall_kicks
 var tetromino_data 
 var is_next_piece 
 var pieces = []
-var other_tetrominos: Array[Tetromino] = []
+var other_tetrominos_pieces = []
 var ghost_tetromino
 
 @onready var timer: Timer = $Timer
@@ -104,13 +104,11 @@ func is_within_game_bounds(direction: Vector2, starting_global_position: Vector2
 			return false
 	return true
 
-func is_colliding_with_other_tetrominos(direction: Vector2, starting_global_position: Vector2):
-	for tetromino in other_tetrominos:
-		var tetromino_pieces = tetromino.get_children().filter(func (c): return c is Piece) 
-		for tetromino_piece in tetromino_pieces:
+func is_colliding_with_other_tetrominos(direction: Vector2, starting_global_position: Vector2): 
+	for tetromino_piece in other_tetrominos_pieces:
 			for piece in pieces:
 				if starting_global_position + piece.position + direction * piece.get_size().x \
-				== tetromino.global_position + tetromino_piece.position:
+				==  + tetromino_piece.global_position:
 					return true
 	return false
 
